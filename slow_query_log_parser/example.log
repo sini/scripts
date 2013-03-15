@@ -1,0 +1,41 @@
+# Time: 130314  1:15:34.861398
+# User@Host: akinnard[akinnard] @ localhost []
+# Thread_id: 25  Schema:   Last_errno: 0  Killed: 0
+# Query_time: 0.118560  Lock_time: 0.000103  Rows_sent: 0  Rows_examined: 14851  Rows_affected: 1048  Rows_read: 14851
+# Bytes_sent: 60  Tmp_tables: 1  Tmp_disk_tables: 0  Tmp_table_sizes: 0
+# InnoDB_trx_id: C79
+# QC_Hit: No  Full_scan: Yes  Full_join: No  Tmp_table: Yes  Tmp_table_on_disk: No
+# Filesort: No  Filesort_on_disk: No  Merge_passes: 0
+#   InnoDB_IO_r_ops: 11  InnoDB_IO_r_bytes: 180224  InnoDB_IO_r_wait: 0.029133
+#   InnoDB_rec_lock_wait: 0.000000  InnoDB_queue_wait: 0.000000
+#   InnoDB_pages_distinct: 133
+SET timestamp=1363220134;
+update cicero_esign.signer s
+inner join  cicero_entities.user as u
+on s.user_uuid = u.user_guid
+inner join cicero_entities.entity as e
+on u.person_id = e.entity_id
+set s.entity_uuid = e.entity_guid
+where s.entity_uuid is null or s.entity_uuid = '';
+# Time: 130314  1:16:15.635929
+# User@Host: akinnard[akinnard] @ localhost []
+# Thread_id: 25  Schema:   Last_errno: 1292  Killed: 0
+# Query_time: 17.893135  Lock_time: 0.001228  Rows_sent: 0  Rows_examined: 25371155  Rows_affected: 13  Rows_read: 25371155
+# Bytes_sent: 54  Tmp_tables: 0  Tmp_disk_tables: 0  Tmp_table_sizes: 0
+# InnoDB_trx_id: C8C
+# QC_Hit: No  Full_scan: No  Full_join: Yes  Tmp_table: No  Tmp_table_on_disk: No
+# Filesort: No  Filesort_on_disk: No  Merge_passes: 0
+#   InnoDB_IO_r_ops: 0  InnoDB_IO_r_bytes: 0  InnoDB_IO_r_wait: 0.000000
+#   InnoDB_rec_lock_wait: 0.000000  InnoDB_queue_wait: 0.000000
+#   InnoDB_pages_distinct: 895
+SET timestamp=1363220175;
+update cicero_activities.activity_detail ad
+inner join cicero_answers.interview_user as iu
+on ad.object_uuid = iu.interview_user_id
+inner join  cicero_entities.user as u
+on iu.user_uuid = u.user_guid
+inner join cicero_entities.entity as e
+on u.person_id = e.entity_id
+set ad.orig_object_uuid = ad.object_uuid, ad.object_uuid = e.entity_guid
+where ad.activity_predicate_id = 3 and (ad.object_uuid is not null and ad.object_uuid != '')
+and (ad.orig_object_uuid is null or orig_object_uuid ='');
