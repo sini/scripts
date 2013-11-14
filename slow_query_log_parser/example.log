@@ -28,6 +28,7 @@ where s.entity_uuid is null or s.entity_uuid = '';
 #   InnoDB_IO_r_ops: 0  InnoDB_IO_r_bytes: 0  InnoDB_IO_r_wait: 0.000000
 #   InnoDB_rec_lock_wait: 0.000000  InnoDB_queue_wait: 0.000000
 #   InnoDB_pages_distinct: 895
+
 SET timestamp=1363220175;
 update cicero_activities.activity_detail ad
 inner join cicero_answers.interview_user as iu
